@@ -45,7 +45,7 @@ DESCRIPTION
       #out << page.versions[page.versions.size-3].version.to_s
 
       if page.versions.last.comments.starts_with?('Freigegeben:')
-        out <<content_tag(:p, safe_join(["Status der Arbeitsanweisung: ", content_tag(:span, "Freigegeben", :style=>"color:green"), " by "]))#,content_tag(:span,safe_jo
+        out <<content_tag(:p, safe_join(["Status der Arbeitsanweisung: ", content_tag(:span, "Freigegeben", :style=>"color:green"), " von ",link_to_user(obj.author) , " vor ", time_tag(page.updated_on), ". " ]))
       else
         out <<content_tag(:p, safe_join(["Status der Arbeitsanweisung: ", content_tag(:span, "Nicht freigegeben.", :style=>"color:red"), " Zuletzt geändert von ",link_to_user(obj.author) , " vor ", time_tag(page.updated_on), ". " ]))
 
