@@ -2,7 +2,8 @@
 
 require 'redmine'
 #require 'uri'
-
+#require wikiapproval_macro_hook
+ 
 Redmine::Plugin.register :redmine_wikiapproval do
 
   name 'Redmine wiki aproval plugin'
@@ -14,12 +15,15 @@ Redmine::Plugin.register :redmine_wikiapproval do
 
   Redmine::WikiFormatting::Macros.register do
   desc <<-DESCRIPTION
-This macro provides means for
+This plugin a macro for marking approved and not approved wiki pages.
 
 DESCRIPTION
 
+#	settings :default => { 'allowed_users' => '1' },  :partial => 'settings/redmine_wikiapproval_settings'
+
+
 	macro :approvepage do |obj, args, text|
-		args, options = extract_macro_options(args, :approved)
+		args, options = extract_macro_options(args, :date)
 
     if obj.is_a?(WikiContent) # || obj.is_a?(WikiContent::Version)
 
@@ -79,7 +83,10 @@ DESCRIPTION
 
       elsif  obj.is_a?(WikiContent::Version)
         out = "".html_safe
-        out << "Dies ist möglicherweise nicht die neuste freigebene Version."
+        #out << "Dies ist die neuste freigebene Revision." # if freigegeben und neuste
+        #out << "Die ist eine veraltete Revision. Die neuste freigegebene Revision ist ??." # if freigegeben aber nicht neuste
+        #out << "Diese Revision ist nicht freigegeben. Die neuste freigegeben Revision ist ??." #if nicht freigegeben aber neuere freigegeben revision vorhanden
+				out << "Diese Revision ist möglicherweise nicht die neuste freigebene Revision."
         out
       else
         raise 'This macro can be called from wiki pages only.'
