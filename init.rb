@@ -72,7 +72,7 @@ DESCRIPTION
 
 					#link_to ver.version, :action => 'show', :id => @page.title, :project_id => @page.project, :version => ver.version
 				else
-					out << "Es gibt noch keine Freigegebene Version."
+					out << "Es gibt noch keine freigegebene Revision."
 				end
 			end
 			#out << content_tag(:span,safe_join([avatar(obj.author, size: 14), ' ', link_to_user(obj.author)]),class: 'last-updated-by')
@@ -81,10 +81,10 @@ DESCRIPTION
 
 			elsif	 obj.is_a?(WikiContent::Version)
 				out = "".html_safe
-				#out << "Dies ist die neuste freigebene Revision." # if freigegeben und neuste
+				#out << "Dies ist die neuste freigegebene Revision." # if freigegeben und neuste
 				#out << "Die ist eine veraltete Revision. Die neuste freigegebene Revision ist ??." # if freigegeben aber nicht neuste
-				#out << "Diese Revision ist nicht freigegeben. Die neuste freigegeben Revision ist ??." #if nicht freigegeben aber neuere freigegeben revision vorhanden
-				out << "Diese Revision ist möglicherweise nicht die neuste freigebene Revision."
+				#out << "Diese Revision ist nicht freigegeben. Die neuste freigegebene Revision ist ??." #if nicht freigegeben aber neuere freigegeben revision vorhanden
+				out << "Diese Revision ist möglicherweise nicht die neuste freigegebene Revision."
 				out
 			else
 				raise 'This macro can be called from wiki pages only.'
