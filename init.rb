@@ -60,20 +60,21 @@ DESCRIPTION
 					end
 				end
 				if lastapprovedindex != ""
-					out << "Die letzte freigegebene Revision ist: "
-					out << link_to('Revision '+page.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>page.page.title, :project_id => page.page.project, :version => page.versions[lastapprovedindex].version.to_s)
-					out << " von ".html_safe
-					out << link_to_user(page.versions[lastapprovedindex].author)
-					out << " vor ".html_safe
-					out << time_tag(page.versions[lastapprovedindex].updated_on)
-					out << ". ".html_safe
-					#https://github.com/redmine/redmine/blob/master/app/views/wiki/history.html.erb
-					#out << link_to(page.page.version, :action => 'show', :id=>page.page.title, :project_id => page.page.project, :version => page.page.v
+                                        out << "Die letzte freigegebene Revision ist: "
+                                        out << link_to('Revision '+page.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>page.page.title, :project_id => page.page.project, :version => page.versions[lastapprovedindex].version.to_s)
+                                        out << " von ".html_safe
+                                        out << link_to_user(page.versions[lastapprovedindex].author)
+                                        out << " vor ".html_safe
+                                        out << time_tag(page.versions[lastapprovedindex].updated_on)
+                                        out << ". ".html_safe
+                                        out << content_tag(:p, safe_join(["Für produktive Arbeiten unbedingt die letzte freigegebene Revision verwenden! Dazu hier klicken: ", link_to('Revision '+page.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>page.page.title, :project_id => page.page.project, :version => page.versions[lastapprovedindex].version.to_s), ". " ]), :style=>"color:red")
+                                        #https://github.com/redmine/redmine/blob/master/app/views/wiki/history.html.erb
+                                        #out << link_to(page.page.version, :action => 'show', :id=>page.page.title, :project_id => page.page.project, :version => page.page.v
 
-					#link_to ver.version, :action => 'show', :id => @page.title, :project_id => @page.project, :version => ver.version
-				else
-					out << "Es gibt noch keine freigegebene Revision."
-				end
+                                        #link_to ver.version, :action => 'show', :id => @page.title, :project_id => @page.project, :version => ver.version
+                                else
+                                        out << content_tag(:p, "Es gibt noch keine freigegebene Revision. Diese Seite darf nicht produktiv verwendet werden!", :style=>"color:red")
+                                end
 			end
 			#out << content_tag(:span,safe_join([avatar(obj.author, size: 14), ' ', link_to_user(obj.author)]),class: 'last-updated-by')
 			#out << content_tag(:span,l(:label_updated_time, time_tag(page.updated_on)).html_safe, class: 'last-updated-at')
