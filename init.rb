@@ -80,14 +80,55 @@ DESCRIPTION
 			#out << content_tag(:span,l(:label_updated_time, time_tag(page.updated_on)).html_safe, class: 'last-updated-at')
 			out
 
-			elsif	 obj.is_a?(WikiContentVersion)
-				out = "".html_safe
-				#out << "Dies ist die neuste freigegebene Revision." # if freigegeben und neuste
-				#out << "Die ist eine veraltete Revision. Die neuste freigegebene Revision ist ??." # if freigegeben aber nicht neuste
-				#out << "Diese Revision ist nicht freigegeben. Die neuste freigegebene Revision ist ??." #if nicht freigegeben aber neuere freigegeben revision vorhanden
-				out << "Diese Revision ist möglicherweise nicht die neuste freigegebene Revision."
-				out
-			else
+			elsif    obj.is_a?(WikiContentVersion)
+                                out = "".html_safe
+                               #out << "Revision "
+                               #out << obj.version.to_s
+                               #out << obj.previous.to_s
+                               #out << obj.next.to_s
+                               #out << obj.comments
+                               #out << obj.page.content.versions
+
+
+                               #out << obj.page.content.versions[0].version.to_s
+                               #out << obj.page.title
+                               #out << obj.page.content.project
+
+                               lastapprovedindex=""
+
+
+                               for i in (obj.page.content.versions.size-1).downto(0)
+                                       #out << content_tag(:p, page.versions[i].version.to_s+", "+page.versions[i].comments)
+                                       if obj.page.content.versions[i].comments.starts_with?('Freigegeben:')
+                                               #lastapproved=(i+1).to_s
+                                               lastapprovedindex=i#page.versions[i].version.to_s
+                                               break
+                                       end
+                               end
+
+                               #out << " ÄÄÄÄ lastapprovedindex: " << lastapprovedindex.to_s
+                               #out << " obj.version" << obj.version.to_s <<  "ÄÄÄÄ"
+
+                               if obj.comments.starts_with?('Freigegeben:')
+                                       if (obj.version - 1 ) == lastapprovedindex
+                                               out << content_tag(:p, "Dies ist die neuste freigegebene Revision.", :style=>"color:green")
+                                       else
+                                               out << content_tag(:p, safe_join(["Dies ist eine veraltete freigegebene Revision! Die neuste freigegebene Revision ist ", link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s)]), :style=>"color:red")
+                                               out << content_tag(:p, safe_join(["Für produktive Arbeiten unbedingt die letzte freigegebene Revision verwenden! Dazu hier klicken: ", link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s), ". " ]), :style=>"color:red")
+                                               #out << content_tag(:p, "Dies ist eine veraltete freigegebene Revision!  Die neuste freigegebene Revision ist ", :style=>"color:red")
+                                               #out << link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s)
+                                       end
+                               else
+                                       if lastapprovedindex != ""
+                                               out << content_tag(:p, safe_join(["Diese Revision ist nicht freigegeben! Die neuste freigegebene Revision ist ", link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s)]), :style=>"color:red")
+                                               out << content_tag(:p, safe_join(["Für produktive Arbeiten unbedingt die letzte freigegebene Revision verwenden! Dazu hier klicken: ", link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s), ". " ]), :style=>"color:red")
+                                                #out << link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s)
+                                       else
+                                               out << content_tag(:p, "Diese Revision ist nicht freigegeben! Es gibt noch keine freigegebene Revision. Diese Seite darf nicht produktiv verwendet werden!", :style=>"color:red")
+                                       end
+                               end
+
+                        else
 				raise 'This macro can be called from wiki pages only.'
 			end
 		end
