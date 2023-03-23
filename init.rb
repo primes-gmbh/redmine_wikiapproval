@@ -23,7 +23,7 @@ DESCRIPTION
 	macro :approvepage do |obj, args, text|
 		args, options = extract_macro_options(args, :date)
 
-		if obj.is_a?(WikiContent) # || obj.is_a?(WikiContent::Version)
+		if obj.is_a?(WikiContent) # || obj.is_a?(WikiContentVersion)
 
 			page=obj
 
@@ -80,7 +80,7 @@ DESCRIPTION
 			#out << content_tag(:span,l(:label_updated_time, time_tag(page.updated_on)).html_safe, class: 'last-updated-at')
 			out
 
-			elsif	 obj.is_a?(WikiContent::Version)
+			elsif	 obj.is_a?(WikiContentVersion)
 				out = "".html_safe
 				#out << "Dies ist die neuste freigegebene Revision." # if freigegeben und neuste
 				#out << "Die ist eine veraltete Revision. Die neuste freigegebene Revision ist ??." # if freigegeben aber nicht neuste
