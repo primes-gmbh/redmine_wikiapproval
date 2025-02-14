@@ -6,7 +6,7 @@ This plugin provides a macro for marking revisions of wiki pages as approved and
 Requirements
 ------------
 
-Redmine 3.0.x, 3.1.x, 4.0.x or 4.1.x
+Redmine 3.0.x, 3.1.x, 4.0.x, 4.1.x, 5.0.x, 5.1.x or 6.0.x
 Other versions are not tested but may work.
 
 Installation
