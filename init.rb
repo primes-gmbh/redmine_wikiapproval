@@ -10,7 +10,7 @@ Redmine::Plugin.register :redmine_wikiapproval do
 	author '5inf'
 	description 'This plugin provides a macro for marking revisions of wiki pages as approved and displaying the status.'
 	version '0.0.0'
-	url 'https://github.com/5inf/redmine_wikiapproval'
+	url 'https://github.com/primes-gmbh/redmine_wikiapproval'
 	author_url 'https://github.com/5inf/'
 
 	Redmine::WikiFormatting::Macros.register do
