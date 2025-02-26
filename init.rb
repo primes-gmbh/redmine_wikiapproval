@@ -110,17 +110,17 @@ DESCRIPTION
                                #out << " obj.version" << obj.version.to_s <<  "ÄÄÄÄ"
 
                                if obj.comments.starts_with?('Freigegeben:')
-                                       if (obj.version - 1 ) == lastapprovedindex
-                                               out << content_tag(:p, "Dies ist die neuste freigegebene Revision.", :style=>"color:green")
+                                       if (obj.version - 1) == lastapprovedindex
+                                               out << content_tag(:p, "Dies ist die neueste freigegebene Revision.", :style=>"color:green")
                                        else
-                                               out << content_tag(:p, safe_join(["Dies ist eine veraltete freigegebene Revision! Die neuste freigegebene Revision ist ", link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s)]), :style=>"color:red")
+                                               out << content_tag(:p, safe_join(["Dies ist eine veraltete freigegebene Revision! Die neueste freigegebene Revision ist ", link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s)]), :style=>"color:red")
                                                out << content_tag(:p, safe_join(["Für produktive Arbeiten unbedingt die letzte freigegebene Revision verwenden! Dazu hier klicken: ", link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s), ". " ]), :style=>"color:red")
-                                               #out << content_tag(:p, "Dies ist eine veraltete freigegebene Revision!  Die neuste freigegebene Revision ist ", :style=>"color:red")
+                                               #out << content_tag(:p, "Dies ist eine veraltete freigegebene Revision! Die neueste freigegebene Revision ist ", :style=>"color:red")
                                                #out << link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s)
                                        end
                                else
                                        if lastapprovedindex != ""
-                                               out << content_tag(:p, safe_join(["Diese Revision ist nicht freigegeben! Die neuste freigegebene Revision ist ", link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s)]), :style=>"color:red")
+                                               out << content_tag(:p, safe_join(["Diese Revision ist nicht freigegeben! Die neueste freigegebene Revision ist ", link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s)]), :style=>"color:red")
                                                out << content_tag(:p, safe_join(["Für produktive Arbeiten unbedingt die letzte freigegebene Revision verwenden! Dazu hier klicken: ", link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s), ". " ]), :style=>"color:red")
                                                 #out << link_to('Revision '+obj.page.content.versions[lastapprovedindex].version.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => obj.page.content.versions[lastapprovedindex].version.to_s)
                                        else
