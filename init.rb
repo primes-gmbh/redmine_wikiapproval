@@ -110,7 +110,7 @@ DESCRIPTION
                                #out << " obj.version" << obj.version.to_s <<  "ÄÄÄÄ"
 
                                if obj.comments.starts_with?('Freigegeben:')
-                                       if (obj.version - 1) == lastapprovedindex
+                                       if obj.version == lastapprovedversion
                                                out << content_tag(:p, "Dies ist die neueste freigegebene Revision.", :style=>"color:green")
                                        else
                                                out << content_tag(:p, safe_join(["Dies ist eine veraltete freigegebene Revision! Die neueste freigegebene Revision ist ", link_to('Revision '+lastapprovedversion.to_s, :action => 'show', :id=>obj.page.title, :project_id => obj.page.content.project, :version => lastapprovedversion.to_s)]), :style=>"color:red")
